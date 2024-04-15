@@ -18,7 +18,7 @@ import re
 # check the characters in inp against the valid roman numerals
 def appropriate_characters(inp):
     for char in inp:
-        if not(re.match('[IVXLCDM]+', char)):
+        if not(re.match('[IVXLCDM]', char)):
             return False
     return True
 
@@ -39,6 +39,10 @@ def correct_notation(inp, vals):
                     # repetitions of the second letter in the subtractive after the subtraction
                     if not(subtractive(inp[i], inp[i+1], inp[i:])):
                         return False
+                    else:
+                        if len(inp[i:]) >= 3:
+                            correct_notation(inp[i+2:], vals)
+                            break
                 # Checks the validity of repeated numbers that have a number after them
                 elif vals[inp[i]] == vals[inp[i+1]] and len(inp[i:]) == 3:
                     if not(repeated(inp[i+1], inp[i+2])):
